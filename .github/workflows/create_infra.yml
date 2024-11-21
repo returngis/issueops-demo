@@ -18,6 +18,11 @@ env:
 jobs:
   validate_issue_forms:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
