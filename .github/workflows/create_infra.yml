@@ -24,12 +24,12 @@ jobs:
         workspace: ${{ github.workspace }}
     
     - name: Validate Issue
-        id: validate
-        uses: issue-ops/validator@v0.2.1
-        with:
-          issue-form-template: example-request.yml
-          parsed-issue-body: ${{ steps.parse.outputs.json }}
-          workspace: ${{ github.workspace }}
+      id: validate
+      uses: issue-ops/validator@v0.2.1
+      with:
+        issue-form-template: example-request.yml
+        parsed-issue-body: ${{ steps.parse.outputs.json }}
+        workspace: ${{ github.workspace }}
 
     - name: Output Issue JSON
       id: output-issue
