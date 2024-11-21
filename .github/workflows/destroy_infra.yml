@@ -1,4 +1,4 @@
-name: Create Infrastructure with Terraform and Issues 🚀🔧
+name: Destroy Infrastructure with Terraform 💥🔨
 
 on:
   issues: 
