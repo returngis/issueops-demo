@@ -47,7 +47,7 @@ jobs:
 
     - name: Add Labels
       id: add-labels
-      uses: issue-ops/labeler@vX.X.X
+      uses: issue-ops/labeler@v2.1.0
       with:
         action: add
         issue_number: ${{ github.event.issue.number }}
@@ -55,6 +55,7 @@ jobs:
           deploying
           azure
           terraform
+          waiting-for-approvers
   check_terraform_plan:
 
     needs: validate_issue_forms
