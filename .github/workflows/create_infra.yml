@@ -40,7 +40,7 @@ jobs:
       run: echo ${{ steps.parser.outputs.json }}
 
     - name: Validate Issue
-      id: validate
+      id: validate-issue
       uses: issue-ops/validator@v0.2.1
       with:
         issue-form-template: create_azure_infra_form.yml
