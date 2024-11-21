@@ -1,0 +1,22 @@
+name: Create Infrastructure with Terraform and Issues 🚀🔧
+
+on:
+  issues: 
+    types: closed
+
+jobs:
+  destroy_terraform_infra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
