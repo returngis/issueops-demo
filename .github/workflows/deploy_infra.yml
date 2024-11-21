@@ -1,13 +1,21 @@
 name: Deploy Infrastructure
 
-# the workflow to execute on is comments that are newly created
 on:
   issue_comment:
     types: [created]
 
-# permissions needed for reacting to IssueOps commands on issues and PRs
+
+defaults:
+  run:
+    working-directory: ./terraform
+
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.TF_SUBSCRIPTION_ID }}
+  ARM_CLIENT_ID: ${{ secrets.TF_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.TF_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }} 
+
 permissions:
-  pull-requests: write
   issues: write
   checks: read
 
@@ -27,3 +35,25 @@ jobs:
 
     - name: deploy
       run: echo "I am going to deploy now!"
+
+    - name: Download artifact related with this issue
+      uses: actions/download-artifact@v4
+      with:
+        name: artifact
+        run-id: 11954475843
+
+    - name: List files in artifact
+      run: ls ${{ github.workspace }}/artifact
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      id: init
+      run: | 
+        terraform init
+
+    - name: Terraform Apply     
+      id: apply
+      run: |
+        terraform apply -auto-approve artifact/tfplan.out

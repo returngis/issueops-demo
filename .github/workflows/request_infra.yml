@@ -83,13 +83,25 @@ jobs:
       id: plan
       run: | 
         terraform plan \
-        -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}" -no-color -out=plan-${{ github.event.issue.number }}.tfplan
+        -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}" -no-color -out=tfplan.out
       continue-on-error: true
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
-        path: ./terraform/plan-${{ github.event.issue.number }}.tfplan          
+        path: ./terraform/tfplan.out
+
+    - uses: actions/github-script@v6
+      name: Comment on Issue with the run id of this GitHub Action Workflow
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const workflow_id = "${{ github.run_id }}";
+          github.issues.createComment({
+            issue_number: ${{ github.event.issue.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `workflow_id`
 
     - uses: actions/github-script@v6
       env:
