@@ -50,6 +50,11 @@ jobs:
     - name: Convert Issue Form to Terraform.tfvars
       run:  echo '${{ steps.parser.outputs.json }}' | jq -r 'to_entries|map("\(.key)=\((if (.value | type) == "array" then .value[0] else .value end)|tostring)")|.[]' > terraform.tfvars
 
+    - name: Check terraform.tfvars
+      run: |
+        pwd
+        cat terraform.tfvars
+
     - name: Add Labels
       id: add-labels
       uses: issue-ops/labeler@v2.1.0
