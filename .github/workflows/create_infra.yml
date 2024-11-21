@@ -77,8 +77,7 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: | 
-        terraform validate \
-        -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}" -no-color 
+        terraform validate -no-color 
 
     - name: Terraform Plan
       id: plan
