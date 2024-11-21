@@ -12,17 +12,18 @@ permissions:
   checks: read
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    
-  - uses: github/command@v1.2.2
-    id: command
-    with:
-      command: ".deploy"
+  deploy_infra:
+    runs-on: ubuntu-latest
+    steps:
+      
+    - uses: github/command@v1.2.2
+      id: command
+      with:
+        command: ".deploy"
 
-      # run your custom logic for your project here - example seen below
+        # run your custom logic for your project here - example seen below
 
-      # conditionally run some logic here
-   - name: deploy
-     if: ${{ steps.command.outputs.continue == 'true' }}
-     run: echo "I am going to deploy now!"
+        # conditionally run some logic here
+    - name: deploy
+      if: ${{ steps.command.outputs.continue == 'true' }}
+      run: echo "I am going to deploy now!"
