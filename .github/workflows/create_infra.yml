@@ -38,7 +38,7 @@ jobs:
       id: validate
       uses: issue-ops/validator@v0.2.1
       with:
-        issue-form-template: example-request.yml
+        issue-form-template: create_azure_infra_form.yml
         parsed-issue-body: ${{ steps.parse.outputs.json }}
         workspace: ${{ github.workspace }}
 
