@@ -39,11 +39,11 @@ jobs:
       uses: issue-ops/validator@v0.2.1
       with:
         issue-form-template: create_azure_infra_form.yml
-        parsed-issue-body: ${{ steps.parse.outputs.json }}
+        parsed-issue-body: ${{ steps.parser.outputs.json }}
         workspace: ${{ github.workspace }}
 
     - name: Convert Issue Form to Terraform.tfvars
-      run:  echo '${{ steps.parse.outputs.json }}' | jq -r 'to_entries|map("\(.key)=\((if (.value | type) == "array" then .value[0] else .value end)|tostring)")|.[]' > terraform.tfvars
+      run:  echo '${{ steps.parser.outputs.json }}' | jq -r 'to_entries|map("\(.key)=\((if (.value | type) == "array" then .value[0] else .value end)|tostring)")|.[]' > terraform.tfvars
 
     - name: Add Labels
       id: add-labels
