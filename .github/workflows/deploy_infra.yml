@@ -54,7 +54,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: artifact
-        run-id: 11954475843
+        run-id: ${{ steps.run_id.outputs.run_id }}
 
     - name: List files in artifact
       run: ls ${{ github.workspace }}/artifact
