@@ -61,35 +61,26 @@ jobs:
           azure
           terraform
           waiting-for-approvers
-  # check_terraform_plan:
 
-  #   needs: validate_issue_forms
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
 
-  #   runs-on: ubuntu-latest
+    - name: Terraform Init
+      run: | 
+        terraform init 
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4      
+    - name: Terraform Plan
+      run: | 
+        terraform plan \
+        -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"          
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: | 
-          terraform init 
-
-      - name: Terraform Plan
-        run: | 
-          terraform plan \
-          -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"          
-
-      - uses: actions/github-script@v6
+    - uses: actions/github-script@v6
         # if: github.event_name == 'pull_request'
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
