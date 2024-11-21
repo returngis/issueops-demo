@@ -61,15 +61,15 @@ jobs:
           azure
           terraform
           waiting-for-approvers
-  check_terraform_plan:
+  # check_terraform_plan:
 
-    needs: validate_issue_forms
+  #   needs: validate_issue_forms
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4      
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4      
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
