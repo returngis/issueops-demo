@@ -30,6 +30,10 @@ jobs:
         issue-form-template	: create_azure_infra_form.yml
         workspace: ${{ github.workspace }}
     
+    - name: Output Issue JSON
+      id: output-issue
+      run: echo ${{ steps.parser.outputs.json }}
+
     - name: Validate Issue
       id: validate
       uses: issue-ops/validator@v0.2.1
@@ -38,11 +42,7 @@ jobs:
         parsed-issue-body: ${{ steps.parse.outputs.json }}
         workspace: ${{ github.workspace }}
 
-    - name: Output Issue JSON
-      id: output-issue
-      run: echo ${{ steps.parser.outputs.json }}
-
-    - name: Concert Issue Form to Terraform.tfvars
+    - name: Convert Issue Form to Terraform.tfvars
       run:  echo '${{ steps.parse.outputs.json }}' | jq -r 'to_entries|map("\(.key)=\((if (.value | type) == "array" then .value[0] else .value end)|tostring)")|.[]' > terraform.tfvars
 
     - name: Add Labels
