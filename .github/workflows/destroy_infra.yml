@@ -38,15 +38,18 @@ jobs:
 
       - name: Get the resource group name from the Terraform state
         id: get_rg_name
-        run: echo "::set-output name=rg_name::$(terraform output resource_group_name)"
+        # run: echo "::set-output name=rg_name::$(terraform output resource_group_name)"
+        run: echo "rg_name=$(terraform output resource_group_name)" >> $GITHUB_OUTPUT
 
       - name: Get the location from the Terraform state
         id: get_location
-        run: echo "::set-output name=location::$(terraform output location)"
+        # run: echo "::set-output name=location::$(terraform output location)"
+        run: echo "location=$(terraform output location)" >> $GITHUB_OUTPUT
 
       - name: Get storage account name from the Terraform state
         id: get_storage_account_name
-        run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
+        # run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
+        run: echo "storage_account_name=$(terraform output storage_account_name)" >> $GITHUB_OUTPUT
 
       - name: Create a terraform.tfvars file
         run: |
