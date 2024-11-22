@@ -50,7 +50,13 @@ jobs:
       run: echo "${{ steps.fc.outputs.body }}"
 
     - name: show run id
-      run: echo ${{ steps.run_id.outputs.run_id }}
+      run: |
+          echo ${{ steps.fc.outputs.comment-id }}
+          echo ${{ steps.fc.outputs.comment-node-id }}
+          echo ${{ steps.fc.outputs.comment-body }}
+          echo ${{ steps.fc.outputs.comment-author }}
+          echo ${{ steps.fc.outputs.comment-created-at }}
+      
 
     - name: Download artifact related with this issue
       uses: actions/download-artifact@v4
