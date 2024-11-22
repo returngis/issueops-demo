@@ -38,11 +38,8 @@ jobs:
 
 
       - name: Create a terraform.tfvars file
-        run: |
-          echo "resource_group_name = \"$(terraform output -raw resource_group_name)\"" >> terraform.tfvars
-          echo "region = \"$(terraform output -raw location)\"" >> terraform.tfvars
-          echo "storage_account_name = \"$(terraform output -raw storage_account_name)\"" >> terraform.tfvars
-
+        run:  $(terraform output) > terraform.tfvars
+          
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
 
