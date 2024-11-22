@@ -36,6 +36,24 @@ jobs:
           -backend-config="key=issue-${{ github.event.issue.number }}-terraform.tfstate" \
           -backend-config="access_key=${{ secrets.TF_STATE_STORAGE_ACCESS_KEY }}"
 
+      - name: Get the resource group name from the Terraform state
+        id: get_rg_name
+        run: echo "::set-output name=rg_name::$(terraform output resource_group_name)"
+
+      - name: Get the location from the Terraform state
+        id: get_location
+        run: echo "::set-output name=location::$(terraform output region)"
+
+      - name: Get storage account name from the Terraform state
+        id: get_storage_account_name
+        run: echo "::set-output name=storage_account_name::$(terraform output storage_account_name)"
+
+      - name: Create a terraform.tfvars file
+        run: |
+          echo "resource_group_name = \"$(steps.get_rg_name.outputs.rg_name)\"" >> terraform.tfvars
+          echo "location = \"$(steps.get_location.outputs.location)\"" >> terraform.tfvars
+          echo "storage_account_name = \"$(steps.get_storage_account_name.outputs.storage_account_name)\"" >> terraform.tfvars
+
       - name: Terraform Destroy 🧨
         run: terraform destroy -auto-approve
 
