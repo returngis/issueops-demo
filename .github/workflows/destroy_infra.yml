@@ -38,13 +38,16 @@ jobs:
 
 
       - name: Create a terraform.tfvars file
-        run:  terraform output > terraform.tfvars
+        run:  | 
+          terraform output > terraform.tfvars
+          echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}"" >> terraform.tfvars
+          terraform fmt
           
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
 
       - name: Terraform Destroy 🧨
-        run: terraform destroy -auto-approve -var="subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"
+        run: terraform destroy -auto-approve
 
       - name: Remove Labels
         id: remove-labels
