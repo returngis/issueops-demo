@@ -23,7 +23,7 @@ jobs:
   deploy_infra:
     runs-on: ubuntu-latest
     steps:
-      
+    - uses: actions/checkout@v4
     - uses: github/command@v1.2.2
       id: command
       with:
