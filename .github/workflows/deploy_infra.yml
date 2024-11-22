@@ -62,7 +62,7 @@ jobs:
         run-id: 11963924274
         
     - name: List files in artifact
-      run: ls
+      run: ls $GITHUB_WORKSPACE
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
