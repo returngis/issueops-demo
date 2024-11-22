@@ -1,4 +1,4 @@
-name: Deploy Infrastructure
+name: 🚀 Deploy Infrastructure
 
 on:
   issue_comment:
