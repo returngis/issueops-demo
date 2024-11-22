@@ -49,10 +49,9 @@ jobs:
     - name: show run id
       run: |
           echo "Comment ID: ${{ steps.fc.outputs.comment-id }}"
-          echo ${{ steps.fc.outputs.comment-node-id }}
           echo "Comment Body: ${{ steps.fc.outputs.comment-body }}"
-          echo ${{ steps.fc.outputs.comment-author }}
-          echo ${{ steps.fc.outputs.comment-created-at }}
+          echo "Comment author: ${{ steps.fc.outputs.comment-author }}"
+          echo "Comment create at: ${{ steps.fc.outputs.comment-created-at }}"
       
 
     - name: Download artifact related with this issue
