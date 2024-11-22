@@ -42,7 +42,7 @@ jobs:
 
       - name: Get the location from the Terraform state
         id: get_location
-        run: echo "::set-output name=location::$(terraform output region)"
+        run: echo "::set-output name=location::$(terraform output location)"
 
       - name: Get storage account name from the Terraform state
         id: get_storage_account_name
@@ -51,8 +51,11 @@ jobs:
       - name: Create a terraform.tfvars file
         run: |
           echo "resource_group_name = \"$(steps.get_rg_name.outputs.rg_name)\"" >> terraform.tfvars
-          echo "location = \"$(steps.get_location.outputs.location)\"" >> terraform.tfvars
+          echo "region = \"$(steps.get_location.outputs.location)\"" >> terraform.tfvars
           echo "storage_account_name = \"$(steps.get_storage_account_name.outputs.storage_account_name)\"" >> terraform.tfvars
+
+      - name: Check the content of the terraform.tfvars file
+        run: cat terraform.tfvars
 
       - name: Terraform Destroy 🧨
         run: terraform destroy -auto-approve -var="subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"
