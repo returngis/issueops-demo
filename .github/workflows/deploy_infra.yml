@@ -44,6 +44,7 @@ jobs:
         issue-number: ${{ github.event.issue.number }}      
         comment-author: github-actions    
         body-includes: Run ID
+        token: ${{ secrets.GITHUB_TOKEN }}
   
     - name: show run id
       run: |
