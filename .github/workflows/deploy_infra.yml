@@ -81,3 +81,22 @@ jobs:
       id: apply
       run: |
         terraform apply -auto-approve $GITHUB_WORKSPACE/tfplan.out
+
+    - name: Remove Labels
+      id: remove-labels
+      uses: issue-ops/labeler@v2.1.0
+      with:
+        action: remove
+        issue_number: ${{ github.event.issue.number }}
+        labels: |
+          deploying 🚀⌛️         
+
+    - name: Add Labels
+      id: add-labels
+      uses: issue-ops/labeler@v2.1.0
+      with:
+        action: add
+        issue_number: ${{ github.event.issue.number }}
+        labels: |
+          deployed 🚀✅
+          
