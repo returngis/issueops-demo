@@ -41,11 +41,12 @@ jobs:
 
 
       - name: Terraform output as JSON
-        run: terraform output -json > output.json
+        run: terraform output -json
 
       - name: Export Terraform Outputs to tfvars
         run: |
-         cat output.json | jq -r 'to_entries | map("\(.key)=\"\(.value.value)\"") | .[]'  > terraform.tfvars
+          terraform output -json | jq -r 'to_entries | map("\(.key)=\"\(.value.value)\"") | .[]'
+          terraform output -json | jq -r 'to_entries | map("\(.key)=\"\(.value.value)\"") | .[]'  > terraform.tfvars
        
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
