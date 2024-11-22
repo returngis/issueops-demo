@@ -38,3 +38,21 @@ jobs:
 
         - name: Terraform Destroy 🧨
           run: terraform destroy -auto-approve
+
+        - name: Remove Labels
+          id: remove-labels
+          uses: issue-ops/labeler@v2.1.0
+          with:
+            action: remove
+            issue_number: ${{ github.event.issue.number }}
+            labels: |
+              deployed 🚀✅        
+
+        - name: Add Labels
+          id: add-labels
+          uses: issue-ops/labeler@v2.1.0
+          with:
+            action: add
+            issue_number: ${{ github.event.issue.number }}
+            labels: |
+              destroyed 🚀🔥
