@@ -111,7 +111,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Run ID: ${workflow_id} "
+              body: `Run ID: ${workflow_id}`
             })
 
     - uses: actions/github-script@v6
