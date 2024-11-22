@@ -16,6 +16,7 @@ env:
   ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }} 
 
 permissions:
+  contents: read
   issues: write
   checks: read
 
