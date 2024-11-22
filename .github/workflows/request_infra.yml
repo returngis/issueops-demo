@@ -53,6 +53,7 @@ jobs:
       run: |
         pwd
         cat terraform.tfvars
+        terraform fmt
 
     - name: Add Labels
       id: add-labels
