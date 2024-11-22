@@ -42,7 +42,7 @@ jobs:
       id: fc
       with:
         issue-number: ${{ github.event.issue.number }}
-        body-includes: Run ID
+        body-includes: "Run ID:"
 
     - name: Get the run id from the comment
       id: run_id
