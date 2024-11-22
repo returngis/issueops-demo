@@ -53,13 +53,18 @@ jobs:
           echo "Comment author: ${{ steps.fc.outputs.comment-author }}"
           echo "Comment create at: ${{ steps.fc.outputs.comment-created-at }}"
       
+    - name: Get the run ID
+      id: get_run_id
+      run: |
+        echo "Comment Body: ${{ steps.fc.outputs.comment-body }}"
+        echo "::set-output name=run_id::$(echo ${{ steps.fc.outputs.comment-body }} | grep -oP 'Run ID: \K\d+')"
 
     - name: Download artifact related with this issue
       uses: actions/download-artifact@v4.1.8
       with:
         name: artifact
         github-token: ${{ github.token }}
-        run-id: 11963924274
+        run-id: ${{ steps.get_run_id.outputs.run_id }}
         
     - name: List files in artifact
       run: ls $GITHUB_WORKSPACE
