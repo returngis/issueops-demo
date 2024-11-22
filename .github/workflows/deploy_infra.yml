@@ -42,7 +42,8 @@ jobs:
       id: fc
       with:
         issue-number: ${{ github.event.issue.number }}
-        body-includes: "Run ID:"
+        comment-author: github-actions
+        body-regex: "^Run ID:"
 
     - name: Get the run id from the comment
       id: run_id
