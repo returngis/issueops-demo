@@ -42,7 +42,8 @@ jobs:
       uses: peter-evans/find-comment@v3.1.0
       with:    
         issue-number: ${{ github.event.issue.number }}      
-        comment-author: github-actions        
+        comment-author: 'github-actions[bot]'    
+        body-includes: 'Run ID'        
         token: ${{ secrets.GITHUB_TOKEN }}
   
     - name: show run id
