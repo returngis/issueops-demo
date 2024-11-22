@@ -55,7 +55,7 @@ jobs:
           echo "storage_account_name = \"$(steps.get_storage_account_name.outputs.storage_account_name)\"" >> terraform.tfvars
 
       - name: Terraform Destroy 🧨
-        run: terraform destroy -auto-approve
+        run: terraform destroy -auto-approve -var="subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"
 
       - name: Remove Labels
         id: remove-labels
