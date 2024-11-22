@@ -61,38 +61,37 @@ jobs:
         action: add
         issue_number: ${{ github.event.issue.number }}
         labels: |
-          deploying
-          azure
-          terraform
-          waiting-for-approvers
+          deploying 🚀⌛️
+          azure ☁️
+          terraform 🔧
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform Init
+    - name: Terraform Init 🧳
       id: init
       run: | 
         terraform init
     
-    - name: Terraform Validate
+    - name: Terraform Validate 🧪
       id: validate
       run: | 
         terraform validate -no-color 
 
-    - name: Terraform Plan
+    - name: Terraform Plan 📖
       id: plan
       run: | 
         terraform plan \
         -var "subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}" -no-color -out=tfplan.out
       continue-on-error: true
 
-    - name: Upload a Build Artifact
+    - name: Upload a Build Artifact 🎁
       uses: actions/upload-artifact@v4.4.3
       with:
         path: ./terraform/tfplan.out
 
     - uses: actions/github-script@v6
-      name: Comment on Issue with the run id of this GitHub Action Workflow
+      name: Comment on Issue with the run id of this GitHub Action Workflow run 🚀
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
@@ -101,10 +100,11 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Run ID: \`${workflow_id}\` - this is useful for debugging!`
+              body: `Run ID: \`${workflow_id}\` `
             })
 
     - uses: actions/github-script@v6
+      name: Comment with Plan
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
