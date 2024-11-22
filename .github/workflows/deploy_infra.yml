@@ -75,4 +75,4 @@ jobs:
     - name: Terraform Apply     
       id: apply
       run: |
-        terraform apply -auto-approve artifact/tfplan.out
+        terraform apply -auto-approve $GITHUB_WORKSPACE/tfplan.out
