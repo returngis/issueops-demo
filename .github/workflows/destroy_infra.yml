@@ -36,23 +36,23 @@ jobs:
           -backend-config="key=issue-${{ github.event.issue.number }}-terraform.tfstate" \
           -backend-config="access_key=${{ secrets.TF_STATE_STORAGE_ACCESS_KEY }}"
 
-        - name: Terraform Destroy 🧨
-          run: terraform destroy -auto-approve
+      - name: Terraform Destroy 🧨
+        run: terraform destroy -auto-approve
 
-        - name: Remove Labels
-          id: remove-labels
-          uses: issue-ops/labeler@v2.1.0
-          with:
-            action: remove
-            issue_number: ${{ github.event.issue.number }}
-            labels: |
-              deployed 🚀✅        
+      - name: Remove Labels
+        id: remove-labels
+        uses: issue-ops/labeler@v2.1.0
+        with:
+          action: remove
+          issue_number: ${{ github.event.issue.number }}
+          labels: |
+            deployed 🚀✅        
 
-        - name: Add Labels
-          id: add-labels
-          uses: issue-ops/labeler@v2.1.0
-          with:
-            action: add
-            issue_number: ${{ github.event.issue.number }}
-            labels: |
-              destroyed 🚀🔥
+      - name: Add Labels
+        id: add-labels
+        uses: issue-ops/labeler@v2.1.0
+        with:
+          action: add
+          issue_number: ${{ github.event.issue.number }}
+          labels: |
+            destroyed 🚀🔥
