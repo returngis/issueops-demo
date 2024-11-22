@@ -42,20 +42,17 @@ jobs:
 
       - name: Create a terraform.tfvars file
         run:  | 
-          echo location="$(terraform output location)" >> terraform.tfvars
-          echo resource_group_name="$(terraform output resource_group_name)" >> terraform.tfvars
-          echo storage_account_name="$(terraform output storage_account_name)" >> terraform.tfvars
-          echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}" >> terraform.tfvars
-
-          cat terraform.tfvars
-
-          # terraform fmt
-          
+          echo 'location="$(terraform output location)"' >> terraform.tfvars
+          echo 'resource_group_name="$(terraform output resource_group_name)"' >> terraform.tfvars
+          echo 'storage_account_name="$(terraform output storage_account_name)" '>> terraform.tfvars
+       
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
 
       - name: Terraform Destroy 🧨
-        run: terraform destroy -auto-approve
+        run: |
+          terraform destroy -auto-approve \
+          -var="subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}"
 
       - name: Remove Labels
         id: remove-labels
