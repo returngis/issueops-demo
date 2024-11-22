@@ -14,6 +14,10 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.TF_CLIENT_SECRET }}
   ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }}
 
+concurrency:
+  group: ${{ github.event.issue.number }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   issues: write
