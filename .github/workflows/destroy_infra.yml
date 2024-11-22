@@ -46,7 +46,10 @@ jobs:
           echo resource_group_name="$(terraform output resource_group_name)" >> terraform.tfvars
           echo storage_account_name="$(terraform output storage_account_name)" >> terraform.tfvars
           echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}" >> terraform.tfvars
-          terraform fmt
+
+          cat terraform.tfvars
+
+          # terraform fmt
           
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
