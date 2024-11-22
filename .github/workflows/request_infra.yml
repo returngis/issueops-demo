@@ -72,6 +72,11 @@ jobs:
       id: init
       run: | 
         terraform init
+
+    - name: Terraform Format 🖌
+      id: fmt
+      run: | 
+        terraform fmt -check -no-color
     
     - name: Terraform Validate 🧪
       id: validate
