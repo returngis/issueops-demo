@@ -40,11 +40,9 @@ jobs:
           -backend-config="access_key=${{ secrets.TF_STATE_STORAGE_ACCESS_KEY }}"
 
 
-      - name: Create a terraform.tfvars file
-        run:  | 
-          echo "location=\"$(terraform output location)\"" >> terraform.tfvars
-          echo "resource_group_name=\"$(terraform output resource_group_name)\"" >> terraform.tfvars
-          echo "storage_account_name=\"$(terraform output storage_account_name)\"" >> terraform.tfvars
+      - name: Export Terraform Outputs to tfvars
+        run: |
+          terraform output -json | jq -r 'to_entries|map("\(.key)=\"\(.value.value)\"")|.[]' > terraform.tfvars
        
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
