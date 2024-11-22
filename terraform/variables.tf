@@ -1,13 +1,13 @@
 variable "region" {
   description = "The Azure region to deploy resources"
   type        = string
-  default     = "spaincentral"  
+  default     = "spaincentral"
 }
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create resources"
   type        = string
-  nullable = false
+  nullable    = false
 
   validation {
     condition     = length(var.resource_group_name) <= 90
@@ -25,18 +25,18 @@ variable "storage_account_name" {
     error_message = "The storage account name must be at most 24 characters long"
   }
 
-  validation{
-    condition = can(regex("^[a-z0-9]*$", var.storage_account_name))
+  validation {
+    condition     = can(regex("^[a-z0-9]*$", var.storage_account_name))
     error_message = "The value cannot contains - or _"
   }
-  
+
 }
 
 variable "subscription_id" {
   description = "The Azure subscription ID"
   type        = string
-  nullable = false
-  sensitive = true
+  nullable    = false
+  sensitive   = true
 
   validation {
     condition     = length(var.subscription_id) == 36
