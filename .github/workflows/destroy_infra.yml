@@ -45,7 +45,7 @@ jobs:
 
       - name: Export Terraform Outputs to tfvars
         run: |
-          "$(terraform output -json)" | jq -r 'to_entries | map("\(.key)=\"\(.value.value)\"") | .[]'
+          terraform output -json | jq -r 'to_entries | map("\(.key) = \(.value.value | @json)") | .[]' > terraform.tfvars
           terraform output -json | jq -r 'to_entries | map("\(.key)=\"\(.value.value)\"") | .[]'  > terraform.tfvars
        
       - name: Check the content of the terraform.tfvars file
