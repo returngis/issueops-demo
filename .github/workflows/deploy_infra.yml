@@ -37,23 +37,19 @@ jobs:
     - name: deploy
       run: echo "I am going to deploy now!"
 
-    - name: Find  the comment with the run id
-      uses: peter-evans/find-comment@v3
+    - name: Find Comments
       id: fc
-      with:
-        issue-number: ${{ github.event.issue.number }}
-        comment-author: github-actions
-        body-includes: "Run ID: 11963924274 - this is useful for debugging!"
-
-    - name: Get the run id from the comment
-      id: run_id
-      run: echo "${{ steps.fc.outputs.body }}"
-
+      uses: boringresearch/find-comments@v1
+      with:    
+        issue-number: ${{ github.event.issue.number }}      
+        comment-author: github-actions    
+        body-includes: Run ID
+  
     - name: show run id
       run: |
-          echo ${{ steps.fc.outputs.comment-id }}
+          echo "Comment ID: ${{ steps.fc.outputs.comment-id }}"
           echo ${{ steps.fc.outputs.comment-node-id }}
-          echo ${{ steps.fc.outputs.comment-body }}
+          echo "Comment Body: ${{ steps.fc.outputs.comment-body }}"
           echo ${{ steps.fc.outputs.comment-author }}
           echo ${{ steps.fc.outputs.comment-created-at }}
       
