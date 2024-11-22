@@ -36,29 +36,12 @@ jobs:
           -backend-config="key=issue-${{ github.event.issue.number }}-terraform.tfstate" \
           -backend-config="access_key=${{ secrets.TF_STATE_STORAGE_ACCESS_KEY }}"
 
-      - name: Get the resource group name from the Terraform state
-        id: get_rg_name
-        run: |
-          rg_name=$(terraform output -raw resource_group_name)
-          echo "rg_name=$rg_name" >> $GITHUB_OUTPUT
-
-      - name: Get the location from the Terraform state
-        id: get_location
-        run: |
-          location=$(terraform output -raw location)
-          echo "location=$location" >> $GITHUB_OUTPUT
-
-      - name: Get storage account name from the Terraform state
-        id: get_storage_account_name
-        run: |
-          storage_account_name=$(terraform output -raw storage_account_name)
-          echo "storage_account_name=$storage_account_name" >> $GITHUB_OUTPUT
 
       - name: Create a terraform.tfvars file
         run: |
-          echo "resource_group_name = \"$(steps.get_rg_name.outputs.rg_name)\"" >> terraform.tfvars
-          echo "region = \"$(steps.get_location.outputs.location)\"" >> terraform.tfvars
-          echo "storage_account_name = \"$(steps.get_storage_account_name.outputs.storage_account_name)\"" >> terraform.tfvars
+          echo "resource_group_name = \"$(terraform output -raw resource_group_name)\"" >> terraform.tfvars
+          echo "region = \"$(terraform output -raw location)\"" >> terraform.tfvars
+          echo "storage_account_name = \"$(terraform output -raw storage_account_name)\"" >> terraform.tfvars
 
       - name: Check the content of the terraform.tfvars file
         run: cat terraform.tfvars
