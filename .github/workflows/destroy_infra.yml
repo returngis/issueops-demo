@@ -14,6 +14,10 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.TF_CLIENT_SECRET }}
   ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }}
 
+permissions:
+  contents: read
+  issues: write
+
 
 jobs:
   destroy_terraform_infra:
