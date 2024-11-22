@@ -41,7 +41,7 @@ jobs:
 
 
       - name: Terraform output as JSON
-        run: terraform output -json
+        run: terraform output -json | jq .
 
       - name: Export Terraform Outputs to tfvars
         run: |
