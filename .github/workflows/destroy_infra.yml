@@ -1,4 +1,4 @@
-name: 💥🔨Destroy Infrastructure with Terraform 
+name: 🚀🧨 Destroy Infrastructure with Terraform 
 
 on:
   issues: 
@@ -40,7 +40,7 @@ jobs:
       - name: Create a terraform.tfvars file
         run:  | 
           terraform output > terraform.tfvars
-          echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}"" >> terraform.tfvars
+          echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}" >> terraform.tfvars
           terraform fmt
           
       - name: Check the content of the terraform.tfvars file
