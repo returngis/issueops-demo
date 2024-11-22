@@ -13,7 +13,7 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.TF_SUBSCRIPTION_ID }}
   ARM_CLIENT_ID: ${{ secrets.TF_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.TF_CLIENT_SECRET }}
-  ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }} 
+  ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }}
 
 permissions:
   contents: read
@@ -70,7 +70,12 @@ jobs:
     - name: Terraform Init
       id: init
       run: | 
-        terraform init
+        terraform init \
+        -backend-config=`"resource_group_name=${{ secrets.TF_STATE_RESOURCE_GROUP_NAME }}" \
+        -backend-config="storage_account_name=${{ secrets.TF_STATE_AZURE_STORAGE_NAME }}" \
+        -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER_NAME }}" \
+        -backend-config="key=${{ github.event.issue.number }}-terraform.tfstate"` \
+        -backend-config="access_key=${{ secrets.TF_STATE_STORAGE_ACCESS_KEY }}"
 
     - name: Terraform Apply     
       id: apply
