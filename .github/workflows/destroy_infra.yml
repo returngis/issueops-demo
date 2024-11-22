@@ -17,6 +17,9 @@ env:
 
 jobs:
   destroy_terraform_infra:
+
+    name: "BOOM! 💥"
+
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +42,9 @@ jobs:
 
       - name: Create a terraform.tfvars file
         run:  | 
-          terraform output > terraform.tfvars
+          echo location="$(terraform output location)" >> terraform.tfvars
+          echo resource_group_name="$(terraform output resource_group_name)" >> terraform.tfvars
+          echo storage_account_name="$(terraform output storage_account_name)" >> terraform.tfvars
           echo subscription_id="${{ secrets.TF_SUBSCRIPTION_ID }}" >> terraform.tfvars
           terraform fmt
           
