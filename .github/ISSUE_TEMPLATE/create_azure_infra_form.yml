@@ -2,7 +2,7 @@ name: Create Azure Infrastructure
 description: This form is used to create Azure infrastructure
 title: "[Microsoft Azure] Create an Azure Storage Account 📦☁️"
 labels: ["issueops:azure"]
-projects: ["returngis/5"]
+projects: ["returngis/7"]
 assignees:
   - ops
 body:
