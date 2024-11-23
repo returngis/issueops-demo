@@ -4,7 +4,7 @@ title: "[Microsoft Azure] Create an Azure Storage Account 📦☁️"
 labels: ["issueops:azure"]
 projects: ["returngis/7"]
 assignees:
-  - ops
+  - 0gis0
 body:
   - type: markdown
     attributes:
