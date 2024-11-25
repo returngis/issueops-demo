@@ -98,7 +98,7 @@ jobs:
         action: remove
         issue_number: ${{ github.event.issue.number }}
         labels: |
-          deploying 🚀⌛️         
+          requested 👆🏻⌛️        
 
     - name: Add Labels
       id: add-labels
