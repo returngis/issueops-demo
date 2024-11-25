@@ -10,7 +10,7 @@ Para poder usar este repositorio necesitas:
 ```bash
 az login
 
-AZURE_CREDENTIALS=$(az ad sp create-for-rbac --name "issueOps-advanced" --role contributor --scopes /subscriptions/$(az account show --query id -o tsv))
+AZURE_CREDENTIALS=$(az ad sp create-for-rbac --name "issueOps-demo" --role contributor --scopes /subscriptions/$(az account show --query id -o tsv))
 ```
 - **Crear los siguientes secretos** para los flujos de GitHub Actions:
     - `TF_SUBSCRIPTION_ID`: El Id de la suscripción donde vas a desplegar los recursos.
